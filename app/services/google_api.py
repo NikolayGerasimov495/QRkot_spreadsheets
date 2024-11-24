@@ -4,10 +4,10 @@ from aiogoogle import Aiogoogle
 
 from app.core.config import settings
 
-
 FORMAT = "%Y/%m/%d %H:%M:%S"
 ROW_COUNT = 100
 COLUMN_COUNT = 11
+
 
 async def spreadsheets_create(wrapper_services: Aiogoogle) -> str:
 
@@ -21,8 +21,9 @@ async def spreadsheets_create(wrapper_services: Aiogoogle) -> str:
         'sheets': [{'properties': {'sheetType': 'GRID',
                                    'sheetId': 0,
                                    'title': 'Лист1',
-                                   'gridProperties': {'rowCount': ROW_COUNT,
-                                                      'columnCount': COLUMN_COUNT}}}]
+                                   'gridProperties':
+                                       {'rowCount': ROW_COUNT,
+                                        'columnCount': COLUMN_COUNT}}}]
     }
 
     response = await wrapper_services.as_service_account(
@@ -68,7 +69,8 @@ async def spreadsheets_update_value(
         'majorDimension': 'ROWS',
         'values': table_values
     }
-    response = await wrapper_services.as_service_account(
+
+    await wrapper_services.as_service_account(
         service.spreadsheets.values.update(
             spreadsheetId=spreadsheetid,
             range='A1:E30',

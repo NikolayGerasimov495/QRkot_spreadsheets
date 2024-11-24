@@ -1,7 +1,6 @@
-from datetime import timedelta
 from typing import Optional
 
-from sqlalchemy import select, func
+from sqlalchemy import func, select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.crud.base import CRUDBase
@@ -39,7 +38,8 @@ class CRUDCharityProject(CRUDBase):
             select(
                 CharityProject.name,
                 CharityProject.description,
-                func.julianday(CharityProject.close_date) - func.julianday(CharityProject.create_date).label('delta')
+                func.julianday(CharityProject.close_date) -
+                func.julianday(CharityProject.create_date).label('delta')
             ).where(
                 CharityProject.fully_invested
             )
